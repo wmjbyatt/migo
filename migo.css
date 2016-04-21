@@ -1,0 +1,6 @@
+canvas#board {
+  border-style: inset;
+  height: 600px;
+  width: 600px;
+  background: url(gobg.gif);
+}
