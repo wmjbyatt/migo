@@ -4,12 +4,49 @@
     <meta charset="utf-8" />
     <title>Go</title>
     <link rel="stylesheet" type="text/css" href="migo.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src='migo.es6' type='text/javascript'></script>
   </head>
   <body>
+
     <div>
       <canvas id="board"></canvas>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> 
-    <script src='migo.js'></script>
+
+    <script type='text/javascript'>
+      var canvas = document.getElementById('board');
+      var board = new Board();
+
+      canvas.width = 600;
+      canvas.height = 600;
+
+      var ctx = canvas.getContext('2d');
+      var whos_turn = true;
+
+      $(canvas).click(function (e) {
+        var x = Math.floor((e.pageX - $(this).offset().left) / board.piece_diameter);
+        var y = Math.floor((e.pageY - $(this).offset().top) / board.piece_diameter);
+
+        if (board.is_legal_move(x, y)) {
+          board.board_state[x][y] = whos_turn;
+
+          x = x * board.piece_diameter + board.piece_diameter / 2;
+          y = y * board.piece_diameter + board.piece_diameter / 2;
+
+          ctx.beginPath();
+          ctx.arc(x, y, board.piece_diameter / 2, 0, 2 * Math.PI);
+          if (whos_turn) {
+            ctx.fillStyle = "black";
+          } else {
+            ctx.fillStyle = "white";
+          }
+          ctx.fill();
+          whos_turn = !whos_turn;
+        }
+      });
+
+    </script>
+
   </body>
 </html>
