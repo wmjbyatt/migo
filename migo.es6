@@ -22,16 +22,16 @@ class Board {
   get_group(x, y, exclude) {
     if (!exclude) { exclude = [] };
 
-    let this_color = board_state[x][y];
-    let same_nearby = around(x, y).filter( (elem) => {
-      return elem.join() != exclude.join() && board_state[elem[0]][elem[1]] == this_color;
+    let this_color = this.board_state[x][y];
+    let same_nearby = this.around(x, y).filter( (elem) => {
+      return elem.join() != exclude.join() && this.board_state[elem[0]][elem[1]] == this_color;
     });
 
     if (!same_nearby.length){
       return [[x, y]];
     } else {
       return [[x, y]].concat(same_nearby.map( (elem) => {
-        return get_group(elem[0], elem[1], [x, y]);
+        return this.get_group(elem[0], elem[1], [x, y]);
       }));
     }
   }
@@ -58,6 +58,17 @@ class Board {
 
   check_kills() {
 
+  }
+
+  test_get_group(){
+    this.board_state[1][1] = true 
+    this.board_state[1][2] = true 
+    this.board_state[1][3] = true 
+    this.board_state[1][4] = true 
+    let group = JSON.stringify(this.get_group(1, 1))
+    if (!(group == '[[1,1],[1,2],[1,3],[1,4]]')) {
+      throw 'failed: ' + group
+    }
   }
 }
 
