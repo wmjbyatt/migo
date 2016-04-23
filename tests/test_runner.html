@@ -3,10 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <title>Go</title>
-    <link rel="stylesheet" type="text/css" href="migo.css">
+    <link rel="stylesheet" type="text/css" href="./node_modules/mocha/mocha.css">
+    <style type="text/css">
+      #board {
+        display: none
+      }
+    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src='migo.es6' type='text/javascript'></script>
+    <script src='../migo.es6' type='text/javascript'></script>
   </head>
   <body>
 
@@ -47,5 +52,21 @@
         }
       });
     </script>
+
+    <!-- test scripts; these go after every other script -->
+      <div id='mocha'></div>
+      <script src='./node_modules/mocha/mocha.js'></script>
+      <script src='./node_modules/chai/chai.js'></script>
+      <script>
+        mocha.ui('bdd');
+        mocha.reporter('html');
+        var expect = chai.expect;
+      </script>
+      <script src='./spec.es6'></script>
+      <script>
+        mocha.run();
+      </script>
+
+    <!-- end test scripts --->
   </body>
 </html>
