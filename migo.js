@@ -27,12 +27,17 @@ class Board {
       return elem.join() != exclude.join() && this.board_state[elem[0]][elem[1]] == this_color;
     });
 
+    let xy = [x, y];
+    let group = [xy]
+
     if (!same_nearby.length){
-      return [[x, y]];
+      return group;
     } else {
-      return [[x, y]].concat(same_nearby.map( (elem) => {
-        return this.get_group(elem[0], elem[1], [x, y]);
-      }));
+      same_nearby.forEach( (elem) => {
+        group = group.concat(this.get_group(elem[0], elem[1], xy));
+      });
+
+      return group;
     }
   }
 
@@ -61,13 +66,17 @@ class Board {
   }
 
   test_get_group(){
-    this.board_state[1][1] = true 
-    this.board_state[1][2] = true 
-    this.board_state[1][3] = true 
-    this.board_state[1][4] = true 
-    let group = JSON.stringify(this.get_group(1, 1))
+    this.board_state[1][1] = true;
+    this.board_state[1][2] = true;
+    this.board_state[1][3] = true;
+    this.board_state[1][4] = true;
+    
+    let group = JSON.stringify(this.get_group(1, 1));
+
     if (!(group == '[[1,1],[1,2],[1,3],[1,4]]')) {
-      throw 'failed: ' + group
+      throw 'failed: ' + group;
+    } else {
+      console.log('passed: ' + group);
     }
   }
 }

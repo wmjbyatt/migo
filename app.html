@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="migo.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src='migo.es6' type='text/javascript'></script>
+    <script src='migo.js' type='text/javascript'></script>
   </head>
   <body>
 
@@ -18,8 +18,8 @@
       var canvas = document.getElementById('board');
       var board = new Board();
 
-      canvas.width = 600;
-      canvas.height = 600;
+      canvas.width = board.BOARD_SIZE;
+      canvas.height = board.BOARD_SIZE;
 
       var ctx = canvas.getContext('2d');
       var whos_turn = true;
@@ -36,6 +36,7 @@
 
           ctx.beginPath();
           ctx.arc(x, y, board.piece_diameter / 2, 0, 2 * Math.PI);
+          
           if (whos_turn) {
             ctx.fillStyle = "black";
           } else {
@@ -45,10 +46,6 @@
           whos_turn = !whos_turn;
         }
       });
-
-      board.test_get_group()
-
     </script>
-
   </body>
 </html>
